@@ -1,6 +1,6 @@
 # Playbook 08：命令注入测试（Command Injection）
 
-> 覆盖：OWASP Top 10 2021 A03 Injection｜CWE-78｜自研扩展（老张 2026-08-29 补充，SRC 高发）
+> 覆盖：OWASP Top 10 2021 A03 Injection｜CWE-78｜自研扩展（SRC 高发场景）
 > 纪律：只做方法论与弱点原理教学；验证输入一律「类」表述，不给可复制注入串；
 > 动手前先 `scope check` 确认目标在授权范围内。
 

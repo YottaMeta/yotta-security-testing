@@ -1,6 +1,6 @@
 # Playbook 09：文件上传测试（File Upload）
 
-> 覆盖：OWASP Top 10 2021 A05 Security Misconfiguration｜CWE-434｜自研扩展（老张 2026-08-29 补充，SRC 高发）
+> 覆盖：OWASP Top 10 2021 A05 Security Misconfiguration｜CWE-434｜自研扩展（SRC 高发场景）
 > 纪律：只做方法论与弱点原理教学；验证一律用无害测试文件（「类」表述），不给可复制 webshell；
 > 动手前先 `scope check` 确认目标在授权范围内。
 

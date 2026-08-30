@@ -69,7 +69,7 @@ python3 scripts/yotta_security_testing.py report generate findings.json --json -
 
 - 目标：http://127.0.0.1/dvwa
 - 生成时间：2026-08-29T10:00:00+08:00
-- 生成工具：元测 yotta-security-testing v0.2.3（Scope Guard 已启用，敏感凭据已脱敏）
+- 生成工具：元测 yotta-security-testing v0.2.4（Scope Guard 已启用，敏感凭据已脱敏）
 
 ## 摘要
 

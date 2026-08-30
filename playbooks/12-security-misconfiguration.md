@@ -1,6 +1,6 @@
 # Playbook 12：不安全配置测试（Security Misconfiguration）
 
-> 覆盖：OWASP Top 10 2021 A05 Security Misconfiguration｜自研扩展（老张 2026-08-29 补充）
+> 覆盖：OWASP Top 10 2021 A05 Security Misconfiguration｜自研扩展
 > 纪律：只做方法论与弱点原理教学；验证「类」表述，不做弱口令爆破、不触碰未授权凭据；
 > 动手前先 `scope check` 确认目标在授权范围内。
 

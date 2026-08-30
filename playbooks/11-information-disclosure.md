@@ -1,6 +1,6 @@
 # Playbook 11：敏感信息泄露测试（Information Disclosure）
 
-> 覆盖：OWASP Top 10 2021 A05 Security Misconfiguration（信息泄露）｜自研扩展（老张 2026-08-29 补充，SRC 高发）
+> 覆盖：OWASP Top 10 2021 A05 Security Misconfiguration（信息泄露）｜自研扩展（SRC 高发场景）
 > 纪律：只做方法论与弱点原理教学；验证「类」表述，不批量拉取、不留存真实敏感数据；
 > 动手前先 `scope check` 确认目标在授权范围内。
 

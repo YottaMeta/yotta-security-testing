@@ -1,6 +1,6 @@
 # Playbook 10：业务逻辑漏洞测试（Business Logic）
 
-> 覆盖：OWASP Top 10 2021 A01 Broken Access Control / A04 Insecure Design｜自研扩展（老张 2026-08-29 补充，SRC 高发）
+> 覆盖：OWASP Top 10 2021 A01 Broken Access Control / A04 Insecure Design｜自研扩展（SRC 高发场景）
 > 纪律：只做方法论与弱点原理教学；验证在授权范围内用测试数据演练，「类」表述，不实际牟利；
 > 动手前先 `scope check` 确认目标在授权范围内。
 
