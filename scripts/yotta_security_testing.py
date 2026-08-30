@@ -17,7 +17,7 @@
 设计原则：
 - 纯 Python 3.8+ 标准库，零依赖；Windows / Linux / macOS 通用。
 - 只做判定与报告：不发起任何网络请求、不执行目标代码、不输出可执行 payload。
-- 行为锚点（docs/元测-yotta-security-testing立项设计.md §4.4）写死为默认行为。
+- 行为锚点写死为默认行为。
 
 exit code：
   0 = ALLOW（已授权放行）
@@ -53,7 +53,7 @@ try:
 except Exception:
     pass
 
-VERSION = "0.2.2"
+VERSION = "0.2.3"
 TOOL_NAME = "yotta-security-testing"
 CN_NAME = "元测"
 

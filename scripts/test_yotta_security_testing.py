@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """test_yotta_security_testing.py — 元测（yotta-security-testing）Scope Guard 自测套件。
 
-覆盖（行为锚点逐条可测，docs/元测-yotta-security-testing立项设计.md §4.4）：
+覆盖（行为锚点逐条可测）：
 - 授权清单：scope init / add / remove / list（schema v1，默认 deny）
 - 目标三层判定：白名单 → 类型识别 → 默认拒绝
 - 内置黑名单：云元数据绝对禁止 / 高敏域名需 explicit / 内网保留段非白名单拒
@@ -92,7 +92,7 @@ def test_constants():
            yst.EXIT_ERROR, yst.EXIT_NOT_INITIALIZED) == (0, 1, 2, 3, 4))
     check("SEVERITIES 5 级",
           yst.SEVERITIES == ("critical", "high", "medium", "low", "info"))
-    check("VERSION == 0.2.2", yst.VERSION == "0.2.2")
+    check("VERSION == 0.2.3", yst.VERSION == "0.2.3")
     check("高敏二级域名 gov/mil",
           yst.HIGH_SENSITIVITY_SECOND_LEVEL == ("gov", "mil"))
 
@@ -443,7 +443,7 @@ def test_report_generate():
     check("报告不含敏感值 password", "supersecret123" not in out)
     check("报告 cookie 脱敏", "abc123" not in out)
     check("报告含工具名与版本",
-          "yotta-security-testing" in out and "v0.2.2" in out)
+          "yotta-security-testing" in out and "v0.2.3" in out)
     r = run_cli(["report", "generate", str(fp), "--json"], c)
     data = json.loads(r.stdout)
     check("report --json summary 统计",
