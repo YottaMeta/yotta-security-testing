@@ -8,15 +8,30 @@
 
 1. 目标与授权信息（目标 / 授权类型 / 授权来源 / 有效期 / 范围边界）
 2. 摘要（按严重级统计发现数量）
-3. 发现明细（每项：标题 / 严重级 / 类别 / CWE / 端点 / 描述 / 证据 / 修复建议）
-4. 复现步骤（「类」表述）
-5. 修复优先级
+3. 安全扫描联动（可选，`scans` 数组：工具 / 类型 / verdict / 关联报告，引用元信 / 元安 / 元审报告）
+4. 发现明细（每项：标题 / 严重级 / 类别 / CWE / 端点 / 描述 / 证据 / 修复建议）
+5. 复现步骤（「类」表述）
+6. 修复优先级
 
 ## findings.json 输入 schema
 
 ```json
 {
   "target": "<目标，如 http://127.0.0.1/dvwa>",
+  "scans": [
+    {
+      "tool": "yotta-verify",
+      "kind": "装前扫描",
+      "verdict": "SAFE TO INSTALL",
+      "reference": "<元信报告路径>"
+    },
+    {
+      "tool": "yotta-security-audit",
+      "kind": "深度扫描",
+      "verdict": "REVIEW REQUIRED",
+      "reference": "<元安报告路径>"
+    }
+  ],
   "findings": [
     {
       "title": "<发现标题>",
@@ -37,6 +52,7 @@
 
 - severity 必填且取值合法，否则报错；
 - 其余字段可选，但建议补齐（title / description / remediation 缺失会在报告中提示补充）；
+- `scans` 可选：与元信（装前扫描）/ 元安（深度扫描）/ 元审（四阶段审查）报告互相关联，构成完整留痕链；
 - 敏感键（password / token / secret / cookie 等）整值自动掩码；长 hex / base64 / URL 凭据自动脱敏。
 
 ## 生成报告
@@ -53,7 +69,7 @@ python3 scripts/yotta_security_testing.py report generate findings.json --json -
 
 - 目标：http://127.0.0.1/dvwa
 - 生成时间：2026-08-29T10:00:00+08:00
-- 生成工具：元测 yotta-security-testing v0.1.0（Scope Guard 已启用，敏感凭据已脱敏）
+- 生成工具：元测 yotta-security-testing v0.2.2（Scope Guard 已启用，敏感凭据已脱敏）
 
 ## 摘要
 

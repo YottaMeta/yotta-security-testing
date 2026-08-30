@@ -15,7 +15,7 @@
   audit log       查看 / 过滤 / 导出操作留痕（默认开启，无 --no-audit）
 
 设计原则：
-- 纯 Python 3.8+ 标准库，零外部依赖；Windows / Linux / macOS 通用。
+- 纯 Python 3.8+ 标准库，零依赖；Windows / Linux / macOS 通用。
 - 只做判定与报告：不发起任何网络请求、不执行目标代码、不输出可执行 payload。
 - 行为锚点（docs/元测-yotta-security-testing立项设计.md §4.4）写死为默认行为。
 
@@ -53,7 +53,7 @@ try:
 except Exception:
     pass
 
-VERSION = "0.1.0"
+VERSION = "0.2.2"
 TOOL_NAME = "yotta-security-testing"
 CN_NAME = "元测"
 
@@ -640,7 +640,7 @@ def redact_value(value):
     return value
 
 
-def render_markdown(findings, target, generated_at, counts):
+def render_markdown(findings, target, generated_at, counts, scans=None):
     lines = []
     lines.append("# 漏洞评估与渗透测试报告")
     lines.append("")
@@ -658,6 +658,23 @@ def render_markdown(findings, target, generated_at, counts):
     lines.append("")
     lines.append("共 %d 条发现。" % sum(counts.values()))
     lines.append("")
+    if scans:
+        lines.append("## 安全扫描联动")
+        lines.append("")
+        lines.append("| 工具 | 类型 | verdict | 关联报告 |")
+        lines.append("|---|---|---|---|")
+        for sc in scans:
+            if not isinstance(sc, dict):
+                continue
+            tool = sc.get("tool") or "-"
+            kind = sc.get("kind") or "-"
+            verdict = sc.get("verdict") or "-"
+            ref = sc.get("reference") or sc.get("report") or "-"
+            lines.append("| %s | %s | %s | `%s` |" % (tool, kind, verdict, ref))
+        lines.append("")
+        lines.append("> 联动说明：本报告与元信（装前扫描）/ 元安（深度扫描）/ 元审（四阶段审查）"
+                     "报告相互引用，形成「目标 → 扫描 → 测试 → 结论」的完整留痕链。")
+        lines.append("")
     if not findings:
         lines.append("_暂无发现。_")
         return "\n".join(lines)
@@ -700,6 +717,7 @@ def render_markdown(findings, target, generated_at, counts):
 
 
 def cmd_report_generate(args):
+    cfg_dir = resolve_config_dir(args.config_dir)
     src = Path(args.findings)
     if not src.exists():
         raise ScopeError("findings 文件不存在: %s" % src, EXIT_ERROR)
@@ -712,9 +730,13 @@ def cmd_report_generate(args):
         raw_findings = data.get("findings")
         if raw_findings is None:
             raw_findings = data.get("results") or []
+        scans = data.get("scans")
+        if scans is not None and not isinstance(scans, list):
+            scans = None
     elif isinstance(data, list):
         target = ""
         raw_findings = data
+        scans = None
     else:
         raise ScopeError("findings 应为对象或数组", EXIT_ERROR)
     if not isinstance(raw_findings, list):
@@ -739,17 +761,20 @@ def cmd_report_generate(args):
             "target": redact_text(target),
             "generated_at": generated_at,
             "summary": counts,
+            "scans": scans or [],
             "findings": findings,
         }
         text = json.dumps(report, ensure_ascii=False, indent=2)
     else:
-        text = render_markdown(findings, target, generated_at, counts)
+        text = render_markdown(findings, target, generated_at, counts, scans)
     if args.out:
         Path(args.out).parent.mkdir(parents=True, exist_ok=True)
         Path(args.out).write_text(text, encoding="utf-8")
         print("报告已写入: %s" % args.out)
     else:
         print(text)
+    audit(cfg_dir, "report.generate", target=target or "", findings=len(findings),
+          out=args.out or "")
     return EXIT_ALLOW
 
 

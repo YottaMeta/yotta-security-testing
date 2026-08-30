@@ -4,4 +4,4 @@ __pycache__/
 *.tgz
 node_modules/
 .tmp/
-.npmignore
+.npmignorescripts/test_*.py

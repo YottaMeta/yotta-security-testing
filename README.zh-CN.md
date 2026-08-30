@@ -12,7 +12,7 @@ CTF·靶场 / 本地靶机）做 Web 安全测试；内置 <b>Scope Guard</b>，
 <p align="center">触发场景：用户要求对已授权目标做安全测试 / 渗透测试 / 漏洞评估、挖 SRC 众测或 bug bounty、
 做 CTF 或靶场（DVWA / OWASP Juice Shop / HTB / VulnHub）演练、生成漏洞评估与渗透测试报告；
 或说 元测 / 安全测试 / 渗透 / 挖洞 / 挖 SRC / 授权测试 / scope check 等。</p>
-<p align="center">零外部依赖（Python 3.8+ 标准库）；Windows + Linux + macOS；
+<p align="center">零依赖（Python 3.8+ 标准库）；Windows + Linux + macOS；
 定位 = 方法论 / 教材 —— <b>不输出可执行 payload</b>。</p>
 
 <p align="center">
@@ -66,7 +66,7 @@ CTF·靶场 / 本地靶机）做 Web 安全测试；内置 <b>Scope Guard</b>，
 | 01 | SQL 注入测试（SQLi） | 注入类漏洞 | A03 Injection |
 | 02 | XSS 跨站脚本 | 客户端脚本注入 | A03 Injection |
 | 03 | SSRF 服务端请求伪造 | 服务端请求伪造 | A10 SSRF |
-| 04 | XXE 外部实体 | XML 外部实体 | A05 Security Misconfiguration |
+| 04 | XXE 实体注入 | XML 实体注入 | A05 Security Misconfiguration |
 | 05 | 反序列化 | 不安全反序列化 | A08 Software & Data Integrity |
 | 06 | 鉴权与访问控制 | 认证缺陷 / 越权 | A01 / A07 Broken Access Control |
 | 07 | API 安全 | API 攻击面 | OWASP API Top 10 映射 |

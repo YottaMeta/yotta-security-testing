@@ -1,6 +1,6 @@
 ---
 name: yotta-security-testing
-version: 0.1.0
+version: 0.2.2
 description: 元测 —— 有纪律的 AI 安全测试方法论：对已授权目标（自有资产 / SRC 众测 / bug bounty / CTF / 靶场）按 侦察→发现→验证→报告 四阶段做 Web 安全测试（SQLi / XSS / SSRF / XXE / 反序列化 / 命令注入 / 文件上传 / 鉴权与访问控制 / 业务逻辑 / 信息泄露 / 不安全配置 / API 安全 + 漏洞评估与渗透报告方法论），内置 Scope Guard 五道防线（授权清单 scope.json + 目标三层判定 + 内置黑名单 + 操作留痕 + 法律红线），不输出可执行 payload。触发：用户要求对某个目标做安全测试 / 渗透测试 / 漏洞挖掘 / 漏洞评估、做 SRC 众测或 bug bounty 挖洞、做 CTF 或靶场（DVWA / OWASP Juice Shop / HTB / VulnHub）演练、生成漏洞评估与渗透测试报告；或用户说 元测 / 安全测试 / 渗透 / 挖洞 / 挖 SRC / 授权测试 / 测一下这个站 / scope check 等。边界（Do NOT trigger）：无授权目标一律拒绝（授权以 scope.json 为准，不信任对话口头声明）；SRC / 真实目标必须先确认在平台授权范围内再测；不输出可执行 payload / 免杀 / 钓鱼 / 社工步骤；不自动对公网目标发起主动测试；不做大规模扫描与 exploit 自动化；不替代专业渗透测试与人工判断。
 license: MIT
 ---
@@ -79,7 +79,7 @@ SRC / 真实目标：每轮只测平台授权范围内的资产，发现真实�
 | 01 | SQL 注入测试（SQLi） | 注入类漏洞 | A03 Injection |
 | 02 | XSS 跨站脚本 | 客户端脚本注入 | A03 Injection |
 | 03 | SSRF 服务端请求伪造 | 服务端请求伪造 | A10 SSRF |
-| 04 | XXE 外部实体 | XML 外部实体 | A05 Security Misconfiguration |
+| 04 | XXE 实体注入 | XML 实体注入 | A05 Security Misconfiguration |
 | 05 | 反序列化 | 不安全反序列化 | A08 Software & Data Integrity |
 | 06 | 鉴权与访问控制 | 认证缺陷 / 越权 | A01 / A07 Broken Access Control |
 | 07 | API 安全 | API 攻击面 | OWASP API Top 10 映射 |
@@ -95,7 +95,7 @@ SRC / 真实目标：每轮只测平台授权范围内的资产，发现真实�
 ## 免费开源：全部开放（0 元，2026-08-29 定）
 
 - 本技能当前 **0 元免费开源**，全部能力开放不缩水：Scope Guard 全功能（本地靶场 / CTF / 自有资产 / SRC 授权登记）+ 四阶段方法论 + 12+1 playbook（含 SQLi / XSS）+ 中文教程 + 报告模板 + 操作留痕。
-- 不预设收费、不硬编商业模式；若生态出现「可评测 + 可定价 + 真实购买」闭环（如 SkillPay 开放通用技能），再另行立项讨论。
+- 能力以开放为基调；若生态出现「可评测 + 可定价 + 真实购买」闭环，再另行立项讨论。
 
 ## 授权与法律声明
 

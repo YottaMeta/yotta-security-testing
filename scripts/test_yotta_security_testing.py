@@ -92,7 +92,7 @@ def test_constants():
            yst.EXIT_ERROR, yst.EXIT_NOT_INITIALIZED) == (0, 1, 2, 3, 4))
     check("SEVERITIES 5 级",
           yst.SEVERITIES == ("critical", "high", "medium", "low", "info"))
-    check("VERSION == 0.1.0", yst.VERSION == "0.1.0")
+    check("VERSION == 0.2.2", yst.VERSION == "0.2.2")
     check("高敏二级域名 gov/mil",
           yst.HIGH_SENSITIVITY_SECOND_LEVEL == ("gov", "mil"))
 
@@ -443,7 +443,7 @@ def test_report_generate():
     check("报告不含敏感值 password", "supersecret123" not in out)
     check("报告 cookie 脱敏", "abc123" not in out)
     check("报告含工具名与版本",
-          "yotta-security-testing" in out and "v0.1.0" in out)
+          "yotta-security-testing" in out and "v0.2.2" in out)
     r = run_cli(["report", "generate", str(fp), "--json"], c)
     data = json.loads(r.stdout)
     check("report --json summary 统计",
@@ -487,6 +487,30 @@ def test_report_generate():
     r = run_cli(["report", "generate", str(list_form)], c)
     check("列表形式 findings 支持", r.returncode == 0
           and "XSS 类风险" in r.stdout and "leakme123456" not in r.stdout)
+
+    scans_fp = TMP / "findings-scans.json"
+    scans_fp.write_text(json.dumps({
+        "target": "https://example.com/app",
+        "scans": [
+            {"tool": "yotta-verify", "kind": "装前扫描",
+             "verdict": "SAFE TO INSTALL", "reference": "verify-report.md"},
+            {"tool": "yotta-security-audit", "kind": "深度扫描",
+             "verdict": "SAFE TO INSTALL", "reference": "audit-report.md"},
+        ],
+        "findings": [{"title": "测试类风险", "severity": "low",
+                      "description": "描述。"}],
+    }), encoding="utf-8")
+    r = run_cli(["report", "generate", str(scans_fp)], c)
+    check("报告含安全扫描联动视图", r.returncode == 0
+          and "## 安全扫描联动" in r.stdout
+          and "yotta-verify" in r.stdout and "verify-report.md" in r.stdout
+          and "SAFE TO INSTALL" in r.stdout)
+    r = run_cli(["report", "generate", str(scans_fp), "--json"], c)
+    data2 = json.loads(r.stdout)
+    check("report --json 含 scans 数组",
+          isinstance(data2.get("scans"), list) and len(data2["scans"]) == 2)
+    check("report generate 写留痕 report.generate",
+          any(e["action"] == "report.generate" for e in audit_lines(c)))
 
 
 def test_redact():
