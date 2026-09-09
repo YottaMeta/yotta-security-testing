@@ -53,7 +53,7 @@ try:
 except Exception:
     pass
 
-VERSION = "0.2.4"
+VERSION = "0.3.0"
 TOOL_NAME = "yotta-security-testing"
 CN_NAME = "元测"
 

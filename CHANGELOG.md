@@ -1,5 +1,11 @@
 # 更新日志
 
+## v0.3.0 (2026-09-09)
+
+- 评测完善批 2：新增 references/faq.md（12 条常见问题 + 授权/scope/报告/留痕速查）；SKILL.md 增加 FAQ 速查节与渐进披露入口。
+- 安装器错误处理：用法/目标/安装错误统一退出码与修复建议；新增 test/install.test.js。
+- package.json 补 npm test 脚本；版本对齐 0.3.0（package / SKILL / CHANGELOG / CLI）。
+
 ## v0.2.4 (2026-08-30)
 
 表述修正：统一对外表述。

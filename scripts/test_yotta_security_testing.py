@@ -92,7 +92,7 @@ def test_constants():
            yst.EXIT_ERROR, yst.EXIT_NOT_INITIALIZED) == (0, 1, 2, 3, 4))
     check("SEVERITIES 5 级",
           yst.SEVERITIES == ("critical", "high", "medium", "low", "info"))
-    check("VERSION == 0.2.4", yst.VERSION == "0.2.4")
+    check("VERSION == 0.3.0", yst.VERSION == "0.3.0")
     check("高敏二级域名 gov/mil",
           yst.HIGH_SENSITIVITY_SECOND_LEVEL == ("gov", "mil"))
 
@@ -443,7 +443,7 @@ def test_report_generate():
     check("报告不含敏感值 password", "supersecret123" not in out)
     check("报告 cookie 脱敏", "abc123" not in out)
     check("报告含工具名与版本",
-          "yotta-security-testing" in out and "v0.2.4" in out)
+          "yotta-security-testing" in out and "v0.3.0" in out)
     r = run_cli(["report", "generate", str(fp), "--json"], c)
     data = json.loads(r.stdout)
     check("report --json summary 统计",
