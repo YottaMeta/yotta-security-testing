@@ -53,7 +53,7 @@ try:
 except Exception:
     pass
 
-VERSION = "0.3.0"
+VERSION = "0.3.1"
 TOOL_NAME = "yotta-security-testing"
 CN_NAME = "元测"
 
@@ -123,7 +123,9 @@ def load_scope(cfg_dir):
     p = scope_path(cfg_dir)
     if not p.exists():
         raise ScopeError(
-            "未初始化：缺少 %s，请先运行 scope init" % p, EXIT_NOT_INITIALIZED)
+            "未初始化：缺少 %s\n请先运行：scope init --owner <你的名字>\n"
+            "完整示例：python scripts/yotta_security_testing.py scope init --owner <你的名字>"
+            % p, EXIT_NOT_INITIALIZED)
     try:
         data = json.loads(p.read_text(encoding="utf-8"))
     except Exception as e:

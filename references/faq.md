@@ -40,7 +40,7 @@ Scope Guard 默认 deny：即使本地靶场也必须先 `scope add --type train
 
 ## 8. 提示 scope 未初始化/格式错误，退出码是什么？
 
-未初始化、找不到 scope.json、非法授权条目等为 exit 3/4；未授权目标拒绝为 exit 1；云元数据等绝对禁止为 exit 2。报错文案会直接告诉你下一步，比如先 `scope init` 或检查日期/类型。
+未初始化、找不到 scope.json、非法授权条目等为 exit 3/4；未授权目标拒绝为 exit 1；云元数据等绝对禁止为 exit 2。未初始化时，先用 `scope init --owner <你的名字>` 建立默认 deny 清单；报错文案也会给出完整命令与下一步。
 
 ## 9. 测试到一半发现目标过期/范围变化怎么办？
 
